@@ -6,9 +6,17 @@ let equal = document.querySelector('.equals');
 
 function addAllListeners(param){
     for(let i = 0; i < param.length; i++){
-        param[i].addEventListener('click', change);
+        if(param[i].innerHTML === '='){
+            param[i].addEventListener('click', eVL);
+        } else{
+             param[i].addEventListener('click', change);
+        }
     } 
-    equal.addEventListener('click', eVL);
+}
+
+function reset(){
+    currentText = '';
+
 }
 
 addAllListeners(allButtonArray);
@@ -22,40 +30,48 @@ function change(param){
     else{
         currentText = currentText + param.target.innerHTML;
         screen.innerHTML = currentText;
-    }else if(currentText.indexOf('=') >-1){
-        eVL(currentText)
     }
-    console.log(currentText)
-    console.log(eVL(currentText))
 }
 
 
-function eVL(input){
-    if(input.indexOf('+') >-1){
-        add(input);
+function eVL(){
+    console.log(currentText);
+    if(currentText.indexOf('+') >-1){
+        add(currentText);
+    } else if(currentText.indexOf('-') >-1){
+        sub(currentText);
+    } else if(currentText.indexOf('*') >-1){
+        mult(currentText);
+    }else if(currentText.indexOf('/') >-1){
+        divide(currentText);
     } 
+    reset();
 }
 
 function add(param){
    let num = param.split('+');
-    return parseInt(num[0]) + parseInt(num[1]);
+    let add = parseInt(num[0]) + parseInt(num[1]);
+    screen.innerHTML = add;
 }
-console.log(add('1+5'))
+
 
 function sub(param){
     let num = param.split('-');
-    return parseInt(num[0]) - parseInt(num[1]);
+    let sub = parseInt(num[0]) - parseInt(num[1]);
+    screen.innerHTML = sub;
 }
-console.log(sub('1-5'))
+
 
 function mult(param){
     let num = param.split('*');
-    return parseInt(num[0]) * parseInt(num[1]);
+    let mult = parseInt(num[0]) * parseInt(num[1]);
+    screen.innerHTML = mult;
 }
-console.log(mult('1*5'))
+
 
 function divide(param){
     let num = param.split('/');
-    return parseInt(num[0]) / parseInt(num[1]);
+    let divide = parseInt(num[0]) / parseInt(num[1]);
+    screen.innerHTML = divide; 
 }
-console.log(divide('1/5'))
+
