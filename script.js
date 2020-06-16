@@ -8,15 +8,29 @@ function addAllListeners(param){
     for(let i = 0; i < param.length; i++){
         if(param[i].innerHTML === '='){
             param[i].addEventListener('click', eVL);
+        } else if(param[i].innerHTML === 'A/C'){
+            param[i].addEventListener('click', allClr);
+        } else if(param[i].innerHTML === 'Delete'){
+            param[i].addEventListener('click', dlte);
         } else{
              param[i].addEventListener('click', change);
         }
     } 
 }
+function dlte(){
+    console.log(currentText);
+    screen.innerHTML = currentText.split('');
+    return screen.innerHTML-screen.innerHTML[screen.innerHTML.length-1];
+    console.log(currentText.split('').pop());
+}
+
+function allClr(){
+    screen.innerHTML = '';
+    reset();
+}
 
 function reset(){
     currentText = '';
-
 }
 
 addAllListeners(allButtonArray);
